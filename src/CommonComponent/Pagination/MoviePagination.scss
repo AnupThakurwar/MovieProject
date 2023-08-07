@@ -1,0 +1,41 @@
+.pagination-main-container {
+  width: 100%;
+  // position: absolute;
+  // bottom: 21px;
+  background-color: aliceblue;
+  .pagination-container {
+    @extend .flex-properties;
+    .pagination-previous-arrow {
+      font-size: 22px;
+      padding: 8px;
+    }
+    .pagination-page {
+      @extend .flex-properties;
+      padding: 8px;
+      .current-page {
+        flex: 0.5;
+        display: flex;
+        justify-content: end;
+        .page-input {
+          width: 50%;
+          text-align: center;
+        }
+      }
+      .total-pages {
+        flex: 0.5;
+        font-weight: 500;
+        display: flex;
+        justify-content: start;
+      }
+    }
+    .pagination-next-arrow {
+      font-size: 22px;
+      padding: 8px;
+    }
+  }
+}
+.flex-properties {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

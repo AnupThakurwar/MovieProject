@@ -1,0 +1,44 @@
+.detail-container {
+  border-right: 2px solid white;
+  background-color: #d8d9da;
+  .detail-image-container {
+    width: 100%;
+    height: 50vh;
+    position: relative;
+    .image-container {
+      height: inherit;
+      width: inherit;
+      object-fit: cover;
+    }
+    .fa-cross {
+      position: absolute;
+      left: 96%;
+      font-size: 30px;
+      color: grey;
+      &:hover {
+        color: white;
+      }
+    }
+  }
+  .detail-information-container {
+    padding: 5px;
+    .detail-title {
+      font-size: 22px;
+      font-weight: 600;
+    }
+    .details-sub-info-container {
+      .sub-description {
+        font-family: "Cabin", sans-serif;
+      }
+      .sub-release-date {
+        font-family: "Cabin", sans-serif;
+      }
+      .sub-original_language {
+        font-family: "Cabin", sans-serif;
+      }
+      .sub-popularity {
+        font-family: "Cabin", sans-serif;
+      }
+    }
+  }
+}

@@ -1,0 +1,150 @@
+.favoritemovie-maincontainer {
+  width: 100vw;
+  height: 84vh;
+  background-color: black;
+  display: grid;
+  overflow-y: auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+  .favorite-card-container {
+    border: 1px solid rgb(123, 122, 122);
+    margin: 1rem auto;
+    box-shadow: 1px;
+    position: relative;
+    border-radius: 8px;
+    height: fit-content;
+    .fav-cards-image {
+      height: fit-content;
+      width: 100%;
+      border-radius: 8px;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+    .fav-cards-details-container {
+      background-color: grey;
+      height: fit-content;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      // width: 20vw;
+      .fav-cards-label {
+      }
+      .fav-buttons-rating-container {
+        .fav-cards-ranking {
+          display: flex;
+          align-items: center;
+          padding: 5px;
+          .fa-star {
+            color: goldenrod;
+            font-size: 20px;
+          }
+        }
+      }
+      .delete-fav-movie {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        justify-content: center;
+        width: 100%;
+        padding: 5px;
+        .delete-btn {
+          @extend .btn-properties;
+          &:hover {
+            background-color: #c51605;
+          }
+          .delete-title {
+          }
+          .fa-delete {
+          }
+        }
+      }
+    }
+  }
+  .no-favlist-container {
+    color: beige;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: inherit;
+    flex-direction: column;
+    .no-favicon {
+      color: goldenrod;
+      font-size: 4rem;
+      display: flex;
+      justify-content: center;
+    }
+    .no-fav-text {
+      font-size: 18px;
+    }
+  }
+}
+
+.btn-properties {
+  border: 1px solid #5d676b;
+  background-color: #9aa0a3;
+  font-weight: 530;
+  font-size: 13px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 8px;
+  color: aliceblue;
+}
+
+@media only screen and (max-width: 736px) {
+  .favoritemovie-maincontainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 80vh;
+    gap: 1rem;
+    .favorite-card-container {
+      height: fit-content;
+      .fav-cards-image {
+        height: fit-content;
+      }
+      .fav-cards-details-container {
+        width: 100%;
+        height: 21vh;
+        .fav-cards-label {
+          height: 3.5rem;
+        }
+        .fav-buttons-rating-container {
+          .buttons-container {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 736px) and (max-width: 1316px) {
+  .favoritemovie-maincontainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 80vh;
+    gap: 1rem;
+    .favorite-card-container {
+      height: fit-content;
+      .fav-cards-image {
+        height: fit-content;
+      }
+      .fav-cards-details-container {
+        width: 100%;
+        height: 21vh;
+        .fav-cards-label {
+          height: 3.5rem;
+        }
+        .fav-buttons-rating-container {
+          .buttons-container {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 472px) and (max-width: 1320px) {
+  .favoritemovie-maincontainer {
+    height: 85vh;
+  }
+}
