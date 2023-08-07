@@ -14,7 +14,7 @@
     border-radius: 8px;
     height: fit-content;
     .fav-cards-image {
-      height: fit-content;
+      height: auto;
       width: 100%;
       border-radius: 8px;
       border-bottom-left-radius: 0px;
@@ -22,11 +22,12 @@
     }
     .fav-cards-details-container {
       background-color: grey;
-      height: fit-content;
+      height: auto;
       border-bottom-left-radius: 8px;
       border-bottom-right-radius: 8px;
       // width: 20vw;
       .fav-cards-label {
+        height: 8vh;
       }
       .fav-buttons-rating-container {
         .fav-cards-ranking {
@@ -89,7 +90,7 @@
   color: aliceblue;
 }
 
-@media only screen and (max-width: 736px) {
+@media (min-width: 472px) and (max-width: 736px) {
   .favoritemovie-maincontainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -102,9 +103,9 @@
       }
       .fav-cards-details-container {
         width: 100%;
-        height: 21vh;
+        height: fit-content;
         .fav-cards-label {
-          height: 3.5rem;
+          height: auto;
         }
         .fav-buttons-rating-container {
           .buttons-container {
@@ -129,9 +130,9 @@
       }
       .fav-cards-details-container {
         width: 100%;
-        height: 21vh;
+        height: fit-content;
         .fav-cards-label {
-          height: 3.5rem;
+          height: auto;
         }
         .fav-buttons-rating-container {
           .buttons-container {
@@ -146,5 +147,35 @@
 @media (min-width: 472px) and (max-width: 1320px) {
   .favoritemovie-maincontainer {
     height: 85vh;
+  }
+}
+
+@media screen and (max-width: 472px) {
+  .favoritemovie-maincontainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 80vh;
+    gap: 1rem;
+    .favorite-card-container {
+      height: fit-content;
+      width: 47vw;
+      .fav-cards-image {
+        height: auto;
+      }
+      .fav-cards-details-container {
+        width: 100%;
+        height: fit-content;
+        .fav-cards-label {
+          height: auto;
+          display: none;
+        }
+        .fav-buttons-rating-container {
+          .buttons-container {
+            display: block;
+            font-size: 8px;
+          }
+        }
+      }
+    }
   }
 }

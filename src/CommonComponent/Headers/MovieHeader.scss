@@ -23,9 +23,6 @@
   display: flex;
   justify-content: space-between;
   .header-navigation {
-    .badge {
-      top: 14px;
-    }
   }
   .header-searchbar-container {
     display: flex;
@@ -58,14 +55,11 @@
   }
 }
 
-@media only screen and (max-width: 736px) {
+@media (min-width: 472px) and (max-width: 736px) {
   .header-searchnav-container {
     display: flex;
     justify-content: space-between;
     .header-navigation {
-      .badge {
-        top: 100px;
-      }
     }
   }
 }
@@ -75,9 +69,14 @@
     display: flex;
     justify-content: space-between;
     .header-navigation {
-      .badge {
-        top: 100px;
-      }
+    }
+  }
+}
+
+@media screen and (max-width: 472px) {
+  .header-title-container {
+    .header-title {
+      font-size: 18px;
     }
   }
 }

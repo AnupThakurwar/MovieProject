@@ -15,7 +15,7 @@
       .current-page {
         flex: 0.5;
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
         .page-input {
           width: 50%;
           text-align: center;
@@ -38,4 +38,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (max-width: 472px) {
+  .current-page {
+    display: flex;
+    justify-content: flex-end !important;
+  }
 }

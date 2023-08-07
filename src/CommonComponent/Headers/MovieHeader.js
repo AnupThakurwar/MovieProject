@@ -44,7 +44,10 @@ const MovieHeader = ({ searchHandler, onSearchClick }) => {
                 <Link className="nav-item nav-link active" to="/">
                   Home
                 </Link>
-                <Link className="nav-item nav-link" to="/favoritemovie">
+                <Link
+                  className="nav-item nav-link position-relative"
+                  to="/favoritemovie"
+                >
                   Favorite
                   {favoriteMovie?.length > 0 && (
                     <span class="position-absolute translate-middle badge rounded-pill bg-danger">
