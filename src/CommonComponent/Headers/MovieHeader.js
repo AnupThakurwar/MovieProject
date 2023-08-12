@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaSearch, FaSmileBeam } from "react-icons/fa";
+import { FaSmileBeam } from "react-icons/fa";
 import "./MovieHeader.scss";
 import { useMovieContext } from "../../Assets/Context/movieContext";
+import BannerImage from "../BannerImage/bannerImage";
+import SearchBar from "../SearchBar/SearchBar";
 
-const MovieHeader = ({ searchHandler, onSearchClick }) => {
-  const { favoriteMovie } = useMovieContext();
+const MovieHeader = ({ searchHandler, onSearchClick, showBanner }) => {
+  const { favoriteMovie, getMoviebyId } = useMovieContext();
   const [showNav, setShowNav] = useState(false);
 
   const navHandler = () => {
@@ -64,30 +66,27 @@ const MovieHeader = ({ searchHandler, onSearchClick }) => {
           </nav>
         </div>
         <div className="header-searchbar-container">
-          <div className="searchbar-container">
-            <div className="searchbar-input-container">
-              <input
-                type="text"
-                className="input-search"
-                onChange={searchHandler}
-                placeholder="Search Movies here"
-              />
-            </div>
-            <button className="search-icon" onClick={onSearchClick}>
-              <FaSearch />
-            </button>
-          </div>
+          <SearchBar
+            searchHandler={searchHandler}
+            onSearchClick={onSearchClick}
+          />
         </div>
       </div>
 
-      <div className="header-title-container">
+      {/* <div className="header-title-container">
         <label className="header-title">
           <strong className="fist-half">React</strong>{" "}
           <strong className="m">M</strong>
           <FaSmileBeam className="fa-smile" />
           vies
         </label>
-      </div>
+      </div> */}
+      {showBanner && (
+        <BannerImage
+          searchHandler={searchHandler}
+          onSearchClick={onSearchClick}
+        />
+      )}
     </div>
   );
 };

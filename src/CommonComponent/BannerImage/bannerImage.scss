@@ -1,0 +1,24 @@
+.bannerimage-container {
+  height: 23vh;
+  background-color: #61677a;
+  background-image: url("https://cdn.pixabay.com/photo/2020/04/20/18/10/cinema-5069314_1280.jpg");
+  .banner-text-container {
+    width: 100%;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .banner-heading {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1;
+      color: #fff;
+    }
+    .banner-subtext {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #fff;
+    }
+  }
+}

@@ -9,6 +9,8 @@ import MovieCards from "../MovieCards/MovieCards";
 import MoviePagination from "../../CommonComponent/Pagination/MoviePagination";
 //style
 import "./MovieHome.scss";
+import Slider from "react-slick";
+import { settings } from "../../Utils/Carousal/constants";
 
 const MovieHome = () => {
   const [movieData, setMovieData] = useState([]);
@@ -26,9 +28,18 @@ const MovieHome = () => {
 
   const fetchMovie = () => {
     const url = `https://api.themoviedb.org/3/movie/popular?api_key=844dba0bfd8f3a4f3799f6130ef9e335&language=en-US&page=${page}`;
+    //for upcoming movies
+    // const url = `https://api.themoviedb.org/3/movie/popular?api_key=844dba0bfd8f3a4f3799f6130ef9e335&language=en-US&page=${page}`;
+    //for finding the case info
+    // const url = `https://api.themoviedb.org/3/search/person?api_key=844dba0bfd8f3a4f3799f6130ef9e335&searxh_type=ngram&query=jason&language=en-US&page=${page}`;
+    // for finding movie cast
+    // const url = `https://api.themoviedb.org/3/movie/298618?api_key=844dba0bfd8f3a4f3799f6130ef9e335&language=en-US&page=${page}&append_to_response=credits`;
+    //for videos
+    // const url = `https://api.themoviedb.org/3/movie/496450/videos?api_key=844dba0bfd8f3a4f3799f6130ef9e335&language=en-US&page=${page}`;
     axios
       .get(url)
       .then((response) => {
+        console.log("🚀 response:", response);
         setMovieData(response.data.results);
         setTotalPages(response.data.total_pages);
         setPage(response.data.page);
@@ -49,7 +60,11 @@ const MovieHome = () => {
 
   const searchHandler = (e) => {
     const value = e.target.value;
-    setSearchInput(value);
+    setSearchInput(value.toLowerCase());
+    console.log("first");
+    if (e.key === "Enter") {
+      console.log("first");
+    }
   };
 
   const onSearchClick = () => {
@@ -67,9 +82,12 @@ const MovieHome = () => {
       <MovieHeader
         searchHandler={searchHandler}
         onSearchClick={onSearchClick}
+        showBanner={true}
       />
       {movieData?.length > 0 ? (
-        <MovieCards movieData={movieData} />
+        <Slider {...settings}>
+          <MovieCards movieData={movieData} />
+        </Slider>
       ) : (
         <div className="error-container">
           <h1>Oops! No movie found</h1>

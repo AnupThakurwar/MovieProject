@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 //common component
 import Toast from "../../CommonComponent/Toast/Toast";
 import { FaStar, FaStarHalf, FaHeart, FaFilm } from "react-icons/fa";
-import MovieViewDetails from "../MovieViewDetails/MovieViewDetails";
 import { useMovieContext } from "../../Assets/Context/movieContext";
 import "./MovieCards.scss";
+import { useNavigate } from "react-router-dom";
 
 const MovieCards = ({ movieData }) => {
-  const { getFavMovie } = useMovieContext();
+  const navigate = useNavigate();
+  const { getFavMovie, getMoviebyId } = useMovieContext();
   const Img = `https://image.tmdb.org/t/p/w500`;
   const [showDetails, setShowDetails] = useState(false);
-  const [viewDetails, setViewDetails] = useState([]);
   const [message, setMessge] = useState({
     toastData: null,
     show: false,
@@ -29,7 +29,9 @@ const MovieCards = ({ movieData }) => {
 
   const viewDetailsHandler = (movie) => {
     setShowDetails(true);
-    setViewDetails(movie);
+    localStorage.setItem("movieDetail", JSON.stringify(movie));
+    getMoviebyId(movie);
+    navigate("viewdetails");
   };
 
   const AddfavoriteHandler = (movie) => {
@@ -43,14 +45,6 @@ const MovieCards = ({ movieData }) => {
 
   return (
     <div className="detail-card-main-container">
-      {showDetails ? (
-        <MovieViewDetails
-          viewDetails={viewDetails}
-          showDetails={showDetails}
-          img={Img}
-          closeHandler={closeHandler}
-        />
-      ) : null}
       <div className="cards-main-container">
         {movieData.length > 0 &&
           movieData.map((movie) => {
@@ -60,10 +54,11 @@ const MovieCards = ({ movieData }) => {
                   src={Img + movie.poster_path}
                   alt="movie_Image"
                   className="cards-image"
+                  onClick={() => viewDetailsHandler(movie)}
                 />
                 <div className="cards-details-container">
                   <label className="cards-label">{movie.original_title}</label>
-                  <div className="buttons-rating-container">
+                  {/* <div className="buttons-rating-container">
                     <div className="cards-ranking">
                       {stars.map((ele, index) => {
                         if (Math.floor(movie.vote_average) < index) {
@@ -78,7 +73,13 @@ const MovieCards = ({ movieData }) => {
                       })}
                       {+movie.vote_average}
                     </div>
-                    <div className="buttons-container">
+                    <div
+                      className={
+                        showDetails
+                          ? "buttons-container d-block "
+                          : "buttons-container"
+                      }
+                    >
                       <button
                         className="view-details-btn"
                         onClick={() => viewDetailsHandler(movie)}
@@ -99,7 +100,7 @@ const MovieCards = ({ movieData }) => {
                         </span>
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             );

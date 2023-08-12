@@ -30,6 +30,12 @@
       .fa-smile {
         color: goldenrod;
       }
+      .react-movie-logo {
+        color: transparent;
+        background-clip: text;
+        background-image: linear-gradient(90deg, purple, red);
+        font-weight: 600;
+      }
     }
     .info {
       //   position: absolute;

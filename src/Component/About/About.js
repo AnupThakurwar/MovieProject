@@ -15,6 +15,9 @@ const About = () => {
             <strong className="m ms-2">M</strong>
             <FaSmileBeam className="fa-smile" />
             VIES
+            {/* <label htmlFor="" className="react-movie-logo">
+              React Movies
+            </label> */}
           </div>
           <div className="info">
             React Movies a offical wesite for searching latest movies and adding
