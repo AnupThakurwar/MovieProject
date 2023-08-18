@@ -22,9 +22,11 @@
 .header-searchnav-container {
   display: flex;
   justify-content: space-between;
+  width: 100%;
   .header-navigation {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
+    width: 100%;
     .navbar {
       .navbar-brand {
         background-image: linear-gradient(90deg, purple, red);

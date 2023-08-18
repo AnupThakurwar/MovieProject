@@ -1,10 +1,10 @@
 .favoritemovie-maincontainer {
   width: 100vw;
-  height: 84vh;
+  height: 91vh;
   background-color: black;
   display: grid;
   overflow-y: auto;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 1rem;
   .favorite-card-container {
     border: 1px solid rgb(123, 122, 122);
@@ -15,7 +15,7 @@
     height: fit-content;
     .fav-cards-image {
       height: auto;
-      width: 100%;
+      width: 15vw;
       border-radius: 8px;
       border-bottom-left-radius: 0px;
       border-bottom-right-radius: 0px;

@@ -1,0 +1,162 @@
+.modal {
+  &.show {
+    display: block;
+    transition: all 0.3s ease-in-out;
+    transform: scale(1);
+  }
+  transform: scale(0);
+  display: none;
+
+  .modal-header {
+    background-color: #1b6b93;
+    color: #fff;
+    .close {
+      border-radius: 50%;
+      border: none;
+      outline: none;
+      display: flex;
+      width: auto;
+      align-items: center;
+    }
+  }
+
+  .modal-body {
+    .create-playlist-main {
+      .playlist-field-container {
+        .playlist-title-conatiner {
+          padding: 5px;
+          display: flex;
+          .playlist-title {
+            flex: 0.2;
+            font-size: 0.875rem;
+            color: #445069;
+            font-weight: 600;
+            padding: 5px;
+          }
+          .playlist-title-input {
+            flex: 0.8;
+            padding: 5px;
+            border: 1px solid#445069;
+            border-radius: 6px;
+            height: fit-content;
+            &:focus {
+              outline: 1px solid #4477ce;
+            }
+          }
+        }
+        .description-container {
+          display: flex;
+          align-items: center;
+          .playlist-title {
+            flex: 0.2;
+            font-size: 1.125rem;
+            color: #445069;
+            font-weight: 600;
+            padding: 5px;
+            font-size: 0.875rem;
+          }
+          #description {
+            flex: 0.8;
+            border: 1px solid #445069;
+            border-radius: 6px;
+            width: 100%;
+            &:focus {
+              outline: 1px solid #4477ce;
+            }
+          }
+        }
+        .movie-search-container {
+          padding: 5px;
+          display: flex;
+          .selectMovie-title {
+            flex: 0.2;
+            font-size: 0.875rem;
+            color: #445069;
+            font-weight: 600;
+            padding: 5px;
+          }
+          .selectMovie-container {
+            flex: 0.8;
+            &:focus {
+              outline: 1px solid #4477ce;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 476px) {
+  .modal-body {
+    .create-playlist-main {
+      .playlist-field-container {
+        .playlist-title-conatiner {
+          padding: 5px;
+          display: flex;
+          .playlist-title {
+            flex: 0.2;
+            font-size: 0.6rem !important;
+            color: #445069;
+            font-weight: 600;
+            padding: 5px;
+          }
+          .playlist-title-input {
+            flex: 0.8;
+            padding: 5px;
+            border: 1px solid#445069;
+            border-radius: 6px;
+            height: fit-content;
+            &:focus {
+              outline: 1px solid #4477ce;
+            }
+          }
+        }
+        .description-container {
+          display: flex;
+          align-items: center;
+          .playlist-title {
+            flex: 0.2;
+            font-size: 1.125rem;
+            color: #445069;
+            font-weight: 600;
+            padding: 5px;
+            font-size: 0.6rem !important;
+          }
+          #description {
+            flex: 0.8;
+            border: 1px solid #445069;
+            border-radius: 6px;
+            width: 100%;
+            &:focus {
+              outline: 1px solid #4477ce;
+            }
+          }
+        }
+        .movie-search-container {
+          padding: 5px;
+          display: flex;
+          .selectMovie-title {
+            flex: 0.2;
+            font-size: 0.6rem !important;
+            color: #445069;
+            font-weight: 600;
+            padding: 5px;
+          }
+          .selectMovie-container {
+            flex: 0.8;
+            &:focus {
+              outline: 1px solid #4477ce;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: 472px) and (max-width: 776px) {
+}
+@media (min-width: 776px) and (max-width: 991px) {
+}
+@media (min-width: 772px) and (max-width: 991px) {
+}

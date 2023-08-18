@@ -26,16 +26,20 @@ const MovieHome = () => {
     []
   );
 
+  const bannerImage =
+    "https://cdn.pixabay.com/photo/2020/04/20/18/10/cinema-5069314_1280.jpg";
+
   const fetchMovie = () => {
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=844dba0bfd8f3a4f3799f6130ef9e335&language=en-US&page=${page}`;
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;
     //for upcoming movies
-    // const url = `https://api.themoviedb.org/3/movie/popular?api_key=844dba0bfd8f3a4f3799f6130ef9e335&language=en-US&page=${page}`;
+    // const url = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;
     //for finding the case info
-    // const url = `https://api.themoviedb.org/3/search/person?api_key=844dba0bfd8f3a4f3799f6130ef9e335&searxh_type=ngram&query=jason&language=en-US&page=${page}`;
+    // const url = `https://api.themoviedb.org/3/search/person?api_key=${process.env.REACT_APP_API_KEY}&searxh_type=ngram&query=jason&language=en-US&page=${page}`;
     // for finding movie cast
-    // const url = `https://api.themoviedb.org/3/movie/298618?api_key=844dba0bfd8f3a4f3799f6130ef9e335&language=en-US&page=${page}&append_to_response=credits`;
+    // const url = `https://api.themoviedb.org/3/movie/298618?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}&append_to_response=credits`;
     //for videos
-    // const url = `https://api.themoviedb.org/3/movie/496450/videos?api_key=844dba0bfd8f3a4f3799f6130ef9e335&language=en-US&page=${page}`;
+    // const url = `https://api.themoviedb.org/3/movie/496450/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;
+    // const url1 = `https://api.themoviedb.org/3/movie/streaming?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;
     axios
       .get(url)
       .then((response) => {
@@ -83,6 +87,7 @@ const MovieHome = () => {
         searchHandler={searchHandler}
         onSearchClick={onSearchClick}
         showBanner={true}
+        bannerImage={bannerImage}
       />
       {movieData?.length > 0 ? (
         <Slider {...settings}>

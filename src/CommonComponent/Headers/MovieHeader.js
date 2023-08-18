@@ -4,10 +4,14 @@ import { FaSmileBeam } from "react-icons/fa";
 import "./MovieHeader.scss";
 import { useMovieContext } from "../../Assets/Context/movieContext";
 import BannerImage from "../BannerImage/bannerImage";
-import SearchBar from "../SearchBar/SearchBar";
 
-const MovieHeader = ({ searchHandler, onSearchClick, showBanner }) => {
-  const { favoriteMovie, getMoviebyId } = useMovieContext();
+const MovieHeader = ({
+  searchHandler,
+  onSearchClick,
+  showBanner,
+  bannerImage,
+}) => {
+  const { favoriteMovie } = useMovieContext();
   const [showNav, setShowNav] = useState(false);
 
   const navHandler = () => {
@@ -58,6 +62,9 @@ const MovieHeader = ({ searchHandler, onSearchClick, showBanner }) => {
                     </span>
                   )}
                 </Link>
+                <Link className="nav-item nav-link" to="/playlist">
+                  Playlist
+                </Link>
                 <Link className="nav-item nav-link" to="/aboutus">
                   About us
                 </Link>
@@ -65,26 +72,12 @@ const MovieHeader = ({ searchHandler, onSearchClick, showBanner }) => {
             </div>
           </nav>
         </div>
-        <div className="header-searchbar-container">
-          <SearchBar
-            searchHandler={searchHandler}
-            onSearchClick={onSearchClick}
-          />
-        </div>
       </div>
-
-      {/* <div className="header-title-container">
-        <label className="header-title">
-          <strong className="fist-half">React</strong>{" "}
-          <strong className="m">M</strong>
-          <FaSmileBeam className="fa-smile" />
-          vies
-        </label>
-      </div> */}
       {showBanner && (
         <BannerImage
           searchHandler={searchHandler}
           onSearchClick={onSearchClick}
+          bannerImage={bannerImage}
         />
       )}
     </div>

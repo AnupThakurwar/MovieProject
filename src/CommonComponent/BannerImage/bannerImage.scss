@@ -1,7 +1,12 @@
 .bannerimage-container {
   height: 23vh;
   background-color: #61677a;
-  background-image: url("https://cdn.pixabay.com/photo/2020/04/20/18/10/cinema-5069314_1280.jpg");
+  // background-image: url("https://cdn.pixabay.com/photo/2020/04/20/18/10/cinema-5069314_1280.jpg");
+  position: relative;
+  .bannerImage {
+    object-fit: cover;
+    object-position: center;
+  }
   .banner-text-container {
     width: 100%;
     height: inherit;
@@ -9,6 +14,10 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     .banner-heading {
       font-size: 3rem;
       font-weight: 700;
@@ -20,5 +29,70 @@
       font-weight: 600;
       color: #fff;
     }
+  }
+}
+
+@media screen and (max-width: 472px) {
+  .bannerimage-container {
+    height: 23vh;
+    background-color: #61677a;
+    // background-image: url("https://cdn.pixabay.com/photo/2020/04/20/18/10/cinema-5069314_1280.jpg");
+    background-position: bottom;
+    position: relative;
+    .bannerImage {
+      object-fit: cover;
+      object-position: center;
+    }
+    .banner-text-container {
+      width: 100%;
+      height: inherit;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      .banner-heading {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+      }
+      .banner-subtext {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #fff;
+      }
+    }
+  }
+}
+
+@media (min-width: 472px) and (max-width: 736px) {
+  .banner-heading {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+  }
+  .banner-subtext {
+    font-size: 1.5rem !important;
+    font-weight: 600;
+    color: #fff;
+  }
+}
+
+@media (min-width: 736px) and (max-width: 991px) {
+  .banner-heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+  }
+  .banner-subtext {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #fff;
   }
 }

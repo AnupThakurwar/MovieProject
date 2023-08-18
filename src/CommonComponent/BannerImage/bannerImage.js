@@ -2,9 +2,10 @@ import React from "react";
 import "./bannerImage.scss";
 import SearchBar from "../SearchBar/SearchBar";
 
-const BannerImage = ({ searchHandler, onSearchClick }) => {
+const BannerImage = ({ searchHandler, onSearchClick, bannerImage = null }) => {
   return (
     <div className="bannerimage-container">
+      <img src={bannerImage} className="w-100 h-100 bannerImage" alt="" />
       <div className="banner-text-container">
         <label htmlFor="" className="banner-heading">
           Welcome

@@ -1,0 +1,493 @@
+.collection-main-container {
+  .collection-container {
+    position: relative;
+    .collection-backdrop {
+      .backdrop-image {
+        height: 30rem;
+        width: 100%;
+        object-fit: cover;
+        // opacity: 0.5;
+      }
+    }
+  }
+  .collection-information {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 90%;
+    z-index: 1;
+    width: 80%;
+    margin: 0.75rem;
+    // border: 0.0625rem solid black;
+    display: flex;
+    .collection-poster {
+      flex: 0.2;
+      .poster_image {
+        height: auto;
+        width: 16.4vw;
+        border-radius: 0.375rem;
+      }
+    }
+    .collection-details {
+      flex: 0.8;
+      padding: 0.3125rem;
+      backdrop-filter: blur(0.1875rem);
+      .collection-label {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff;
+      }
+      .collection-facts {
+        // border: 0.0625rem solid red;
+        padding: 0.3125rem;
+        .genere {
+          font-size: 1rem;
+          font-weight: 600;
+          color: #fff;
+          display: flex;
+          align-items: center;
+          padding: 0.3125rem;
+          .fa-circle {
+            padding: 0.125rem 0.125rem;
+            font-size: 0.75rem;
+          }
+        }
+        .rating {
+          color: goldenrod;
+          padding: 0.3125rem;
+        }
+        .overview {
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: #fff;
+          padding: 0.3125rem;
+          .collection-sublabel {
+            font-size: 1.125rem;
+            padding: 0.3125rem;
+          }
+        }
+        .revenue {
+          padding: 0.3125rem;
+          font-size: 1rem;
+          font-weight: 700;
+          color: #fff;
+        }
+      }
+    }
+  }
+  .cast-container,
+  .crew-container,
+  .number-of-movie-container {
+    width: 80%;
+    // border: 0.0625rem solid black;
+    margin: auto;
+    .featured-cast {
+      font-size: 18px;
+      padding: 0.3125rem;
+      font-weight: 600;
+      color: #252b48;
+    }
+    .card-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 16px;
+      padding: 0.3125rem;
+      width: auto;
+      .card-character {
+        display: flex;
+        border: 0.0625rem solid #adc4ce;
+        border-radius: 0.375rem;
+        box-shadow: 0.0625rem 0.0625rem 0.125rem #445069;
+        .card-image {
+          flex: 0.1;
+          .cast-image {
+            height: 8vh;
+          }
+        }
+        .card-info {
+          flex: 0.9;
+          padding: 0.5rem;
+          .actor-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #252b48;
+          }
+          .actor-detail {
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: #252b48;
+          }
+        }
+      }
+    }
+    .collection-parts {
+      .postercard {
+        display: flex;
+        border: 0.0625rem solid #adc4ce;
+        border-radius: 0.375rem;
+        box-shadow: 0.0625rem 0.0625rem 0.125rem #445069;
+        .postercard-image {
+          .poster-image {
+            height: 15vh;
+          }
+        }
+        .postercard-details {
+          font-weight: 600;
+          font-size: 0.75rem;
+          color: #252b48;
+          padding: 0.3125rem;
+          .title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #252b48;
+          }
+          .overview {
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: #252b48;
+          }
+          .release_date {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #252b48;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 472px) {
+  .collection-main-container {
+    .collection-container {
+      position: relative;
+      .collection-backdrop {
+        .backdrop-image {
+          height: 23.75rem;
+          width: auto;
+          object-fit: cover;
+          // opacity: 0.5;
+        }
+      }
+    }
+    .collection-information {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 90%;
+      z-index: 1;
+      width: 80%;
+      margin: 0.75rem;
+      // border: 0.0625rem solid black;
+      display: flex;
+      .collection-poster {
+        // flex: 0.2;
+        .poster_image {
+          display: none;
+          height: auto;
+          width: 16.4vw;
+          border-radius: 0.375rem;
+        }
+      }
+      .collection-details {
+        // flex: 0.8;
+        // width: 100%;
+        padding: 0.3125rem;
+        backdrop-filter: blur(0.1075rem);
+        .collection-label {
+          font-size: 2rem;
+          font-weight: 700;
+          color: #fff;
+        }
+        .collection-facts {
+          // border: 0.0625rem solid red;
+          padding: 0.3125rem;
+          .genere {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 0.3125rem;
+            .fa-circle {
+              padding: 0.125rem 0.125rem;
+              font-size: 0.75rem;
+            }
+          }
+          .rating {
+            color: goldenrod;
+            padding: 0.3125rem;
+          }
+          .overview {
+            font-size: 0.575rem;
+            font-weight: 500;
+            color: #fff;
+            padding: 0.3125rem;
+            .collection-sublabel {
+              font-size: 1.09rem;
+              padding: 0.3125rem;
+            }
+          }
+          .revenue {
+            padding: 0.3125rem;
+            font-size: 0.5rem;
+            font-weight: 700;
+            color: #fff;
+          }
+        }
+      }
+    }
+    .cast-container,
+    .crew-container,
+    .number-of-movie-container {
+      width: 80%;
+      // border: 0.0625rem solid black;
+      margin: auto;
+      .featured-cast {
+        font-size: 18px;
+        padding: 0.3125rem;
+        font-weight: 600;
+        color: #252b48;
+      }
+      .card-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        gap: 16px;
+        padding: 0.3125rem;
+        width: auto;
+        overflow-x: auto;
+        .card-character {
+          display: flex;
+          border: 0.0625rem solid #adc4ce;
+          border-radius: 0.375rem;
+          box-shadow: 0.0625rem 0.0625rem 0.125rem #445069;
+          .card-image {
+            flex: 0.1;
+            .cast-image {
+              height: 8vh;
+            }
+          }
+          .card-info {
+            flex: 0.9;
+            padding: 0.5rem;
+            .actor-name {
+              font-weight: 600;
+              font-size: 0.6rem;
+              color: #252b48;
+            }
+            .actor-detail {
+              font-weight: 600;
+              font-size: 0.4rem;
+              color: #252b48;
+            }
+          }
+        }
+      }
+      .collection-parts {
+        .postercard {
+          display: flex;
+          border: 0.0625rem solid #adc4ce;
+          border-radius: 0.375rem;
+          box-shadow: 0.0625rem 0.0625rem 0.125rem #445069;
+          .postercard-image {
+            .poster-image {
+              height: 15vh;
+            }
+          }
+          .postercard-details {
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: #252b48;
+            padding: 0.3125rem;
+            .title {
+              font-weight: 600;
+              font-size: 0.6rem;
+              color: #252b48;
+            }
+            .overview {
+              font-weight: 600;
+              font-size: 0.4rem;
+              color: #252b48;
+            }
+            .release_date {
+              font-weight: 600;
+              font-size: 0.6rem;
+              color: #252b48;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: 472px) and (max-width: 776px) {
+  .collection-main-container {
+    .collection-container {
+      position: relative;
+      .collection-backdrop {
+        .backdrop-image {
+          height: 23.75rem;
+          width: auto;
+          object-fit: cover;
+          // opacity: 0.5;
+        }
+      }
+    }
+    .collection-information {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 90%;
+      z-index: 1;
+      width: 80%;
+      margin: 0.75rem;
+      // border: 0.0625rem solid black;
+      display: flex;
+      .collection-poster {
+        // flex: 0.2;
+        display: flex;
+        align-items: center;
+        .poster_image {
+          height: auto;
+          width: 17vw;
+          border-radius: 0.375rem;
+        }
+      }
+      .collection-details {
+        // flex: 0.8;
+        // width: 100%;
+        padding: 0.3125rem;
+        backdrop-filter: blur(0.1075rem);
+        .collection-label {
+          font-size: 2rem;
+          font-weight: 700;
+          color: #fff;
+        }
+        .collection-facts {
+          // border: 0.0625rem solid red;
+          padding: 0.3125rem;
+          .genere {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 0.3125rem;
+            .fa-circle {
+              padding: 0.125rem 0.125rem;
+              font-size: 0.75rem;
+            }
+          }
+          .rating {
+            color: goldenrod;
+            padding: 0.3125rem;
+          }
+          .overview {
+            font-size: 0.575rem;
+            font-weight: 500;
+            color: #fff;
+            padding: 0.3125rem;
+            .collection-sublabel {
+              font-size: 1.09rem;
+              padding: 0.3125rem;
+            }
+          }
+          .revenue {
+            padding: 0.3125rem;
+            font-size: 0.5rem;
+            font-weight: 700;
+            color: #fff;
+          }
+        }
+      }
+    }
+    .cast-container,
+    .crew-container,
+    .number-of-movie-container {
+      width: 80%;
+      // border: 0.0625rem solid black;
+      margin: auto;
+      .featured-cast {
+        font-size: 18px;
+        padding: 0.3125rem;
+        font-weight: 600;
+        color: #252b48;
+      }
+      .card-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        padding: 0.3125rem;
+        width: auto;
+        overflow-x: auto;
+        .card-character {
+          display: flex;
+          border: 0.0625rem solid #adc4ce;
+          border-radius: 0.375rem;
+          box-shadow: 0.0625rem 0.0625rem 0.125rem #445069;
+          .card-image {
+            flex: 0.1;
+            .cast-image {
+              height: 8vh;
+            }
+          }
+          .card-info {
+            flex: 0.9;
+            padding: 0.5rem;
+            .actor-name {
+              font-weight: 600;
+              font-size: 0.6rem;
+              color: #252b48;
+            }
+            .actor-detail {
+              font-weight: 600;
+              font-size: 0.4rem;
+              color: #252b48;
+            }
+          }
+        }
+      }
+      .collection-parts {
+        .postercard {
+          display: flex;
+          border: 0.0625rem solid #adc4ce;
+          border-radius: 0.375rem;
+          box-shadow: 0.0625rem 0.0625rem 0.125rem #445069;
+          .postercard-image {
+            .poster-image {
+              height: 15vh;
+            }
+          }
+          .postercard-details {
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: #252b48;
+            padding: 0.3125rem;
+            .title {
+              font-weight: 600;
+              font-size: 0.6rem;
+              color: #252b48;
+            }
+            .overview {
+              font-weight: 600;
+              font-size: 0.4rem;
+              color: #252b48;
+            }
+            .release_date {
+              font-weight: 600;
+              font-size: 0.6rem;
+              color: #252b48;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: 776px) and (max-width: 991px) {
+}
+@media (min-width: 991px) and (max-width: 1531px) {
+}

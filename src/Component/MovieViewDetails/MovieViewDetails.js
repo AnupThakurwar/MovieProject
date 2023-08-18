@@ -28,13 +28,15 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
   const details = localStorage.getItem("movieDetail");
   const { getFavMovie } = useMovieContext();
   const viewDetails = JSON.parse(details);
+
   const [movie, setMovie] = useState([]);
   const [credits, setCredits] = useState([]);
   const [movieVideos, setMovieVideos] = useState([]);
   const [likeMovie, setLikeMovie] = useState(false);
   const [showTrailer, setShowTrailer] = useState(false);
-  const [mediaType, setMediaType] = useState("posters");
+  const [mediaType, setMediaType] = useState("backdrops");
   const [movieImages, setMovieImages] = useState([]);
+  const [watchProvider, setWatchProvider] = useState([]);
   const [message, setMessge] = useState({
     toastData: null,
     show: false,
@@ -45,6 +47,7 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
     fetchResponsebyVideo();
     fetchCastBio();
     fetchmovieImages();
+    watchProviders();
   }, []);
 
   useEffect(() => {
@@ -57,8 +60,21 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
     }, 3000);
   }, [message]);
 
+  const watchProviders = () => {
+    const url = `https://api.themoviedb.org/3/movie/${viewDetails.id}/watch/providers?api_key=${process.env.REACT_APP_API_KEY}&include_image_language=en,null`;
+    axios
+      .get(url)
+      .then((response) => {
+        console.log(response.data.results["IN"].flatrate, "media");
+        setWatchProvider(response.data.results["IN"].flatrate);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const fetchmovieImages = () => {
-    const url = `https://api.themoviedb.org/3/movie/${viewDetails.id}?api_key=844dba0bfd8f3a4f3799f6130ef9e335&append_to_response=images&language=en-US&include_image_language=en,null`;
+    const url = `https://api.themoviedb.org/3/movie/${viewDetails.id}?api_key=${process.env.REACT_APP_API_KEY}&append_to_response=images&language=en-US&include_image_language=en,null`;
     axios
       .get(url)
       .then((response) => {
@@ -71,7 +87,7 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
   };
 
   const fetchCastBio = () => {
-    const url = `https://api.themoviedb.org/3/person/976-jason-statham?api_key=844dba0bfd8f3a4f3799f6130ef9e335&language=en-US&append_to_response=credits`;
+    const url = `https://api.themoviedb.org/3/person/976-jason-statham?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=credits`;
     axios
       .get(url)
       .then((response) => {
@@ -84,7 +100,7 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
   };
 
   const fetchCastIntobyId = () => {
-    const url = `https://api.themoviedb.org/3/movie/${viewDetails.id}?api_key=844dba0bfd8f3a4f3799f6130ef9e335&language=en-US&append_to_response=credits`;
+    const url = `https://api.themoviedb.org/3/movie/${viewDetails.id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=credits`;
     axios
       .get(url)
       .then((response) => {
@@ -97,7 +113,7 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
   };
 
   const fetchMoviebyId = () => {
-    const url = `https://api.themoviedb.org/3/movie/${viewDetails.id}?api_key=844dba0bfd8f3a4f3799f6130ef9e335&language=en-US&append_to_response=releases`;
+    const url = `https://api.themoviedb.org/3/movie/${viewDetails.id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=releases`;
     axios
       .get(url)
       .then((response) => {
@@ -110,7 +126,7 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
   };
 
   const fetchResponsebyVideo = () => {
-    const url = `https://api.themoviedb.org/3/movie/${viewDetails.id}/videos?api_key=844dba0bfd8f3a4f3799f6130ef9e335&language=en-US`;
+    const url = `https://api.themoviedb.org/3/movie/${viewDetails.id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
     axios
       .get(url)
       .then((response) => {
@@ -137,6 +153,11 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
     setMessge({ ...message, show: true, toastData: movie });
   };
 
+  const createPlaylistHandler = () => {
+    getFavMovie(movie);
+    navigate("/playlist");
+  };
+
   const PlayTrailer = () => {
     const officialTrailer = movieVideos?.filter(
       (movie) => movie.type === "Trailer"
@@ -145,9 +166,8 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
     return (
       <div className="play-container">
         <iframe
-          width="520"
-          height="315"
           title="flashs"
+          className="iframe-video"
           src={`https://www.youtube.com/embed/${officialTrailer[0]?.key}`}
         ></iframe>
         <FaRegTimesCircle
@@ -192,7 +212,10 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
         });
     }
   };
-  console.log(movie, "movie");
+  // console.log(movie, "movie");
+  const viewCollectionDetails = () => {
+    navigate("/collection");
+  };
 
   return (
     <div className="view-details-main-container">
@@ -292,7 +315,11 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
                       />
                     }
                   </button>
-                  <button className="create-list" title="Create Movie List">
+                  <button
+                    className="create-list"
+                    title="Create Movie List"
+                    onClick={createPlaylistHandler}
+                  >
                     {<FaPlusCircle />}
                   </button>
                 </div>
@@ -330,7 +357,7 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
           <div className="top-cast-container border">
             <label className="top-cast-title w-100">Top Billed Cast</label>
             <div className="credit-main-container">
-              {credits?.cast?.map((cast) => {
+              {credits?.cast?.slice(0, 13).map((cast) => {
                 return (
                   <div className="credit-container" key={cast.cast_id}>
                     <div className="credit-image">
@@ -344,7 +371,7 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
                       <label htmlFor="" className="cast-name">
                         {cast.original_name}
                       </label>
-                      <div className="cast-character">{cast.character}</div>
+                      <p className="cast-character">{cast.character}</p>
                     </div>
                   </div>
                 );
@@ -362,7 +389,12 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
               </label>
               <div className="collection-image-card">
                 <img
-                  src={img + movie?.belongs_to_collection?.backdrop_path}
+                  src={
+                    img +
+                    (movie?.belongs_to_collection?.backdrop_path
+                      ? movie?.belongs_to_collection?.backdrop_path
+                      : movie.backdrop_path)
+                  }
                   alt="collection-background"
                   className="collection-image"
                 />
@@ -371,7 +403,10 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
                     {movie?.belongs_to_collection?.name}
                   </label>
                   <p className="collection-subtext">{movie?.tagline}</p>
-                  <button className="collection-btn">
+                  <button
+                    className="collection-btn"
+                    onClick={viewCollectionDetails}
+                  >
                     View the collection
                   </button>
                 </div>
@@ -387,19 +422,28 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
               <div className="nav-container">
                 <ul className="nav-list">
                   <li
-                    className="nav-items"
-                    onClick={() => setMediaType("posters")}
-                  >
-                    Poster
-                  </li>
-                  <li
-                    className="nav-items"
+                    className={
+                      mediaType === "backdrops"
+                        ? "nav-items active"
+                        : "nav-items"
+                    }
                     onClick={() => setMediaType("backdrops")}
                   >
                     BackDrops
                   </li>
                   <li
-                    className="nav-items"
+                    className={
+                      mediaType === "posters" ? "nav-items active" : "nav-items"
+                    }
+                    onClick={() => setMediaType("posters")}
+                  >
+                    Poster
+                  </li>
+
+                  <li
+                    className={
+                      mediaType === "videos" ? "nav-items active" : "nav-items"
+                    }
                     onClick={() => setMediaType("videos")}
                   >
                     Videos
@@ -410,6 +454,7 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
             <div className="media-card-wrapper">
               {movieImages && <MediaContainer mediatype={mediaType} />}
             </div>
+            <hr />
           </div>
           <div className="side-bar-container">
             <div className="sidebar-wrapper">
@@ -450,6 +495,7 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
                   <p className="value">{movie.revenue}$</p>
                 </div>
               </div>
+              <hr />
               <div className="characters-container"></div>
             </div>
           </div>
