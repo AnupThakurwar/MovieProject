@@ -38,7 +38,7 @@ const MovieFavorite = () => {
                     <label className="fav-cards-label">
                       {movie.original_title}
                     </label>
-                    <div className="fav-buttons-rating-container">
+                    {/* <div className="fav-buttons-rating-container">
                       <div className="fav-cards-ranking">
                         {stars.map((ele, index) => {
                           if (Math.floor(movie.vote_average) < index) {
@@ -55,7 +55,7 @@ const MovieFavorite = () => {
                         })}
                         {+movie.vote_average}
                       </div>
-                    </div>
+                    </div> */}
                     <div className="delete-fav-movie">
                       <button
                         className="delete-btn"

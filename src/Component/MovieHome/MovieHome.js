@@ -4,17 +4,18 @@ import { FaRegMehRollingEyes } from "react-icons/fa";
 //common components
 import MovieHeader from "../../CommonComponent/Headers/MovieHeader";
 import MovieFooter from "../../CommonComponent/Footers/MovieFooter";
+import { SpinnerHoc } from "../../CommonComponent/SpinnerHOC/SpinnerHoc";
 // components
 import MovieCards from "../MovieCards/MovieCards";
 import MoviePagination from "../../CommonComponent/Pagination/MoviePagination";
 //style
 import "./MovieHome.scss";
-import Slider from "react-slick";
-import { settings } from "../../Utils/Carousal/constants";
 
-const MovieHome = () => {
-  const [movieData, setMovieData] = useState([]);
-  const [error, setError] = useState(null);
+const MovieHome = ({ setIsLoading }) => {
+  const [movieData, setMovieData] = useState({
+    movies: [],
+    error: null,
+  });
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null);
   const [searchInput, setSearchInput] = useState("");
@@ -31,26 +32,24 @@ const MovieHome = () => {
 
   const fetchMovie = () => {
     const url = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;
-    //for upcoming movies
-    // const url = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;
-    //for finding the case info
-    // const url = `https://api.themoviedb.org/3/search/person?api_key=${process.env.REACT_APP_API_KEY}&searxh_type=ngram&query=jason&language=en-US&page=${page}`;
-    // for finding movie cast
-    // const url = `https://api.themoviedb.org/3/movie/298618?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}&append_to_response=credits`;
-    //for videos
-    // const url = `https://api.themoviedb.org/3/movie/496450/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;
-    // const url1 = `https://api.themoviedb.org/3/movie/streaming?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;
+
+    setIsLoading(true);
     axios
       .get(url)
       .then((response) => {
+        setIsLoading(false);
         console.log("🚀 response:", response);
-        setMovieData(response.data.results);
+        setMovieData({ ...movieData, movies: response.data.results });
         setTotalPages(response.data.total_pages);
         setPage(response.data.page);
       })
       .catch((error) => {
+        setIsLoading(false);
         console.log(error);
-        setError(error);
+        setMovieData({
+          ...movieData,
+          error: error,
+        });
       });
   };
 
@@ -65,20 +64,24 @@ const MovieHome = () => {
   const searchHandler = (e) => {
     const value = e.target.value;
     setSearchInput(value.toLowerCase());
-    console.log("first");
     if (e.key === "Enter") {
-      console.log("first");
+      setSearchInput(value.toLowerCase());
+      onSearchClick();
     }
   };
 
   const onSearchClick = () => {
-    const fiterMovie = [...movieData];
+    const fiterMovie = [...movieData.movies];
     let item = fiterMovie.filter((movies) => {
       return searchInput.toLowerCase() === ""
         ? movies
         : movies.title.toLowerCase().includes(searchInput);
     });
-    setMovieData(item);
+    console.log(item, "item");
+    setMovieData({
+      ...movieData,
+      movies: item,
+    });
   };
 
   return (
@@ -89,10 +92,8 @@ const MovieHome = () => {
         showBanner={true}
         bannerImage={bannerImage}
       />
-      {movieData?.length > 0 ? (
-        <Slider {...settings}>
-          <MovieCards movieData={movieData} />
-        </Slider>
+      {movieData?.movies?.length > 0 ? (
+        <MovieCards movieData={movieData?.movies} />
       ) : (
         <div className="error-container">
           <h1>Oops! No movie found</h1>
@@ -112,4 +113,4 @@ const MovieHome = () => {
   );
 };
 
-export default MovieHome;
+export default SpinnerHoc(MovieHome);

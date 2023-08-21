@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useMovieContext } from "../../Assets/Context/movieContext";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   FaStar,
@@ -17,12 +19,11 @@ import { movie_genre } from "../../Utils/Carousal/constants";
 //common components
 import MovieHeader from "../../CommonComponent/Headers/MovieHeader";
 import MovieFooter from "../../CommonComponent/Footers/MovieFooter";
-import "./MovieViewDetails.scss";
-import { useMovieContext } from "../../Assets/Context/movieContext";
 import Toast from "../../CommonComponent/Toast/Toast";
-import { useNavigate } from "react-router-dom";
+import { SpinnerHoc } from "../../CommonComponent/SpinnerHOC/SpinnerHoc";
+import "./MovieViewDetails.scss";
 
-const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
+const MovieViewDetails = ({ showDetails = true, setIsLoading }) => {
   const navigate = useNavigate();
   const img = `https://image.tmdb.org/t/p/original/`;
   const details = localStorage.getItem("movieDetail");
@@ -62,13 +63,16 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
 
   const watchProviders = () => {
     const url = `https://api.themoviedb.org/3/movie/${viewDetails.id}/watch/providers?api_key=${process.env.REACT_APP_API_KEY}&include_image_language=en,null`;
+    setIsLoading(true);
     axios
       .get(url)
       .then((response) => {
-        console.log(response.data.results["IN"].flatrate, "media");
-        setWatchProvider(response.data.results["IN"].flatrate);
+        setIsLoading(false);
+        // console.log(response.data.results["IN"], "media");
+        setWatchProvider(response.data.results["IN"]);
       })
       .catch((error) => {
+        setIsLoading(false);
         console.log(error);
       });
   };
@@ -90,10 +94,7 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
     const url = `https://api.themoviedb.org/3/person/976-jason-statham?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=credits`;
     axios
       .get(url)
-      .then((response) => {
-        // console.log(response.data, "cast bio");
-        // setCredits(response.data.credits);
-      })
+      .then((response) => {})
       .catch((error) => {
         console.log(error);
       });
@@ -212,7 +213,7 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
         });
     }
   };
-  // console.log(movie, "movie");
+
   const viewCollectionDetails = () => {
     navigate("/collection");
   };
@@ -233,8 +234,57 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
                 <img
                   src={img + viewDetails.poster_path}
                   alt="poster_image"
-                  className="card-image"
+                  className={
+                    watchProvider ? "card-image watcher" : "card-image"
+                  }
                 />
+                <div className="btn-container">
+                  {watchProvider?.flatrate ? (
+                    <div className="stream-btn">
+                      {watchProvider?.flatrate?.map((watch) => {
+                        return (
+                          <Link
+                            className="stream-link"
+                            key={watch.logo_path}
+                            to={watchProvider.link}
+                          >
+                            <div className="stream-logo">
+                              <img
+                                src={img + watch.logo_path}
+                                alt="netflix_logo"
+                                className="logo"
+                              />
+                            </div>
+                            <div className="content">
+                              <div className="sub">streaming now</div>
+                              <label className="main">Watch Now</label>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="rent-btn">
+                      {watchProvider?.rent?.map((watch) => {
+                        return (
+                          <Link
+                            className="rent-link"
+                            key={watch.logo_path}
+                            to={watchProvider.link}
+                          >
+                            <div className="rent-logo">
+                              <img
+                                src={img + watch.logo_path}
+                                alt="app_logo"
+                                className="logo"
+                              />
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
             <div className="movie-detail-container">
@@ -300,7 +350,7 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
                     title="add to favorite"
                     onClick={() => addfavoriteHandler(movie)}
                   >
-                    {<FaList />}
+                    {<FaPlusCircle />}
                   </button>
                   <button
                     className="like-button"
@@ -320,7 +370,7 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
                     title="Create Movie List"
                     onClick={createPlaylistHandler}
                   >
-                    {<FaPlusCircle />}
+                    {<FaList />}
                   </button>
                 </div>
                 <div className="play-trailer">
@@ -495,7 +545,7 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
                   <p className="value">{movie.revenue}$</p>
                 </div>
               </div>
-              <hr />
+              {/* <hr /> */}
               <div className="characters-container"></div>
             </div>
           </div>
@@ -507,4 +557,4 @@ const MovieViewDetails = ({ showDetails = true, closeHandler }) => {
   );
 };
 
-export default MovieViewDetails;
+export default SpinnerHoc(MovieViewDetails);

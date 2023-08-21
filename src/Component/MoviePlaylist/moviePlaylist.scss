@@ -15,7 +15,7 @@
   }
   .playlist-container {
     display: flex;
-    background-color: black;
+    // background-color: black;
     padding: 5px;
     height: 86vh;
     .playlist-wrapper {
@@ -231,7 +231,7 @@
     }
     .playlist-container {
       display: block;
-      background-color: black;
+      // background-color: black;
       padding: 5px;
       height: 86vh;
       .playlist-wrapper {
@@ -372,6 +372,7 @@
         flex: 0.2;
         color: white;
         display: none;
+
         .created-playlist {
           font-size: 18px;
           font-weight: 700;
@@ -437,7 +438,7 @@
     }
     .playlist-container {
       display: flex;
-      background-color: black;
+      // background-color: black;
       padding: 5px;
       height: 86vh;
       .playlist-wrapper {
@@ -643,7 +644,7 @@
     }
     .playlist-container {
       display: flex;
-      background-color: black;
+      // background-color: black;
       padding: 5px;
       height: 86vh;
       .playlist-wrapper {
@@ -848,7 +849,7 @@
     }
     .playlist-container {
       display: flex;
-      background-color: black;
+      // background-color: black;
       padding: 5px;
       height: 86vh;
       .playlist-wrapper {

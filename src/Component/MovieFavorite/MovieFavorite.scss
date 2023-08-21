@@ -1,7 +1,7 @@
 .favoritemovie-maincontainer {
   width: 100vw;
-  height: 91vh;
-  background-color: black;
+  height: 94vh;
+  // background-color: black;
   display: grid;
   overflow-y: auto;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -21,13 +21,17 @@
       border-bottom-right-radius: 0px;
     }
     .fav-cards-details-container {
-      background-color: grey;
+      background-color: #102c57;
       height: auto;
       border-bottom-left-radius: 8px;
       border-bottom-right-radius: 8px;
       // width: 20vw;
       .fav-cards-label {
-        height: 8vh;
+        height: 5vh;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        padding: 5px;
       }
       .fav-buttons-rating-container {
         .fav-cards-ranking {
@@ -61,7 +65,7 @@
     }
   }
   .no-favlist-container {
-    color: beige;
+    // color: beige;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,10 +86,10 @@
 .btn-properties {
   border: 1px solid #5d676b;
   background-color: #9aa0a3;
-  font-weight: 530;
-  font-size: 13px;
+  font-weight: 700;
+  font-size: 10px;
   text-transform: uppercase;
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 8px;
   color: aliceblue;
 }
@@ -99,7 +103,8 @@
     .favorite-card-container {
       height: fit-content;
       .fav-cards-image {
-        height: fit-content;
+        height: auto;
+        width: 46.5vw;
       }
       .fav-cards-details-container {
         width: 100%;
@@ -110,6 +115,31 @@
         .fav-buttons-rating-container {
           .buttons-container {
             display: block;
+          }
+        }
+        .delete-fav-movie {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          justify-content: center;
+          width: 100%;
+          padding: 5px;
+          .delete-btn {
+            border: 1px solid #5d676b;
+            background-color: #9aa0a3;
+            font-weight: 700;
+            font-size: 10px;
+            text-transform: uppercase;
+            border-radius: 6px;
+            padding: 8px;
+            color: aliceblue;
+            &:hover {
+              background-color: #c51605;
+            }
+            .delete-title {
+            }
+            .fa-delete {
+            }
           }
         }
       }
@@ -126,7 +156,8 @@
     .favorite-card-container {
       height: fit-content;
       .fav-cards-image {
-        height: fit-content;
+        height: auto;
+        width: 29.5vw;
       }
       .fav-cards-details-container {
         width: 100%;
@@ -139,6 +170,31 @@
             display: block;
           }
         }
+        .delete-fav-movie {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          justify-content: center;
+          width: 100%;
+          padding: 5px;
+          .delete-btn {
+            border: 1px solid #5d676b;
+            background-color: #9aa0a3;
+            font-weight: 700;
+            font-size: 10px;
+            text-transform: uppercase;
+            border-radius: 6px;
+            padding: 8px;
+            color: aliceblue;
+            &:hover {
+              background-color: #c51605;
+            }
+            .delete-title {
+            }
+            .fa-delete {
+            }
+          }
+        }
       }
     }
   }
@@ -146,7 +202,7 @@
 
 @media (min-width: 472px) and (max-width: 1320px) {
   .favoritemovie-maincontainer {
-    height: 85vh;
+    height: 94vh;
   }
 }
 
@@ -154,13 +210,14 @@
   .favoritemovie-maincontainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 72vh;
+    height: 93.5vh;
     gap: 1rem;
     .favorite-card-container {
       height: fit-content;
       width: 47vw;
       .fav-cards-image {
         height: auto;
+        width: 46.5vw;
       }
       .fav-cards-details-container {
         width: 100%;
@@ -173,6 +230,31 @@
           .buttons-container {
             display: block;
             font-size: 8px;
+          }
+        }
+        .delete-fav-movie {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          justify-content: center;
+          width: 100%;
+          padding: 5px;
+          .delete-btn {
+            border: 1px solid #5d676b;
+            background-color: #9aa0a3;
+            font-weight: 700;
+            font-size: 10px;
+            text-transform: uppercase;
+            border-radius: 6px;
+            padding: 8px;
+            color: aliceblue;
+            &:hover {
+              background-color: #c51605;
+            }
+            .delete-title {
+            }
+            .fa-delete {
+            }
           }
         }
       }

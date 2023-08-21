@@ -1,6 +1,6 @@
 .about-main-container {
-  height: 84vh;
-  background-color: black;
+  height: 91vh;
+  // background-color: black;
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -38,11 +38,22 @@
       }
     }
     .info {
-      //   position: absolute;
+      // position: absolute;
       padding: 12px;
       text-align: center;
-      font-size: 16px;
-      color: aliceblue;
+      font-size: 1rem;
+      font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+      .email-section {
+        display: flex;
+        align-items: center;
+      }
+      .resume-btn {
+        border-radius: 6px;
+        border: 1px solid #61677a;
+        background-color: #adc4ce;
+        font-weight: 700;
+        padding: 5px;
+      }
     }
   }
 }

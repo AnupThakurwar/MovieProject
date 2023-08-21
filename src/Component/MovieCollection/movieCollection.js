@@ -4,8 +4,9 @@ import { FaCircle, FaStar, FaStarHalf } from "react-icons/fa";
 import MovieHeader from "../../CommonComponent/Headers/MovieHeader";
 import MovieFooter from "../../CommonComponent/Footers/MovieFooter";
 import "./movieCollection.scss";
+import { SpinnerHoc } from "../../CommonComponent/SpinnerHOC/SpinnerHoc";
 
-function MovieCollection() {
+function MovieCollection({ setIsLoading }) {
   const img = `https://image.tmdb.org/t/p/original/`;
   const details = localStorage.getItem("movieDetail");
   const movieDetails = JSON.parse(details);
@@ -24,10 +25,12 @@ function MovieCollection() {
   }, [collection.data]);
 
   const fetchCollectionDetails = () => {
+    setIsLoading(true);
     const collectionUrl = `https://api.themoviedb.org/3/collection/${collection?.data?.belongs_to_collection?.id}?api_key=${process.env.REACT_APP_API_KEY}&append_to_response=images,credits,releases,collections&language=en-US&include_image_language=en,null`;
     axios
       .get(collectionUrl)
       .then((response) => {
+        setIsLoading(false);
         // console.log(response.data, "resp");
         if (response.status === 200)
           setCollection({
@@ -36,6 +39,7 @@ function MovieCollection() {
           });
       })
       .catch((error) => {
+        setIsLoading(false);
         setCollection({
           ...collection,
           data: error.message,
@@ -44,18 +48,19 @@ function MovieCollection() {
   };
 
   const fetchCollection = () => {
+    setIsLoading(true);
     const url = `https://api.themoviedb.org/3/movie/${movieDetails.id}?api_key=${process.env.REACT_APP_API_KEY}&append_to_response=images,credits,releases,collections&language=en-US&include_image_language=en,null`;
     axios
       .get(url)
       .then((response) => {
-        // console.log(response.data, "resp");
-        // if (response.status === 200)
+        setIsLoading(false);
         setCollection({
           ...collection,
           data: response.data,
         });
       })
       .catch((error) => {
+        setIsLoading(false);
         setCollection({
           ...collection,
           error: error.data,
@@ -93,7 +98,10 @@ function MovieCollection() {
                   {collection?.data?.genres?.length > 0 &&
                     collection?.data?.genres.map((genres) => {
                       return (
-                        <div key={genres.id}>
+                        <div
+                          key={genres.id}
+                          className="d-flex align-items-center"
+                        >
                           <FaCircle className="fa-circle" />
                           <div>{genres.name}</div>
                         </div>
@@ -205,4 +213,4 @@ function MovieCollection() {
   );
 }
 
-export default MovieCollection;
+export default SpinnerHoc(MovieCollection);

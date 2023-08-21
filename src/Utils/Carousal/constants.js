@@ -49,3 +49,14 @@ export const movie_genre = {
 //   10752: "War",
 //   37: " Western",
 // };
+
+//apis
+//for upcoming movies
+// const url = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;
+//for finding the case info
+// const url = `https://api.themoviedb.org/3/search/person?api_key=${process.env.REACT_APP_API_KEY}&searxh_type=ngram&query=jason&language=en-US&page=${page}`;
+// for finding movie cast
+// const url = `https://api.themoviedb.org/3/movie/298618?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}&append_to_response=credits`;
+//for videos
+// const url = `https://api.themoviedb.org/3/movie/496450/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;
+// const url1 = `https://api.themoviedb.org/3/movie/streaming?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;

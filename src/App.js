@@ -6,6 +6,7 @@ import MovieFavorite from "./Component/MovieFavorite/MovieFavorite";
 import MovieViewDetails from "./Component/MovieViewDetails/MovieViewDetails";
 import moviePlaylist from "./Component/MoviePlaylist/moviePlaylist";
 import MovieCollection from "./Component/MovieCollection/movieCollection";
+
 function App() {
   return (
     <main className="App">

@@ -25,7 +25,7 @@
       flex: 0.2;
       .poster_image {
         height: auto;
-        width: 16.4vw;
+        width: 15vw;
         border-radius: 0.375rem;
       }
     }
@@ -81,6 +81,9 @@
   .number-of-movie-container {
     width: 80%;
     // border: 0.0625rem solid black;
+    background-color: #fff;
+    border-radius: 6px;
+    margin-top: 1rem;
     margin: auto;
     .featured-cast {
       font-size: 18px;
@@ -165,7 +168,7 @@
       .collection-backdrop {
         .backdrop-image {
           height: 23.75rem;
-          width: auto;
+          width: 100%;
           object-fit: cover;
           // opacity: 0.5;
         }
@@ -193,11 +196,11 @@
       }
       .collection-details {
         // flex: 0.8;
-        // width: 100%;
+        width: 100%;
         padding: 0.3125rem;
         backdrop-filter: blur(0.1075rem);
         .collection-label {
-          font-size: 2rem;
+          font-size: 1.5rem;
           font-weight: 700;
           color: #fff;
         }
@@ -205,7 +208,7 @@
           // border: 0.0625rem solid red;
           padding: 0.3125rem;
           .genere {
-            font-size: 1rem;
+            font-size: 0.8rem;
             font-weight: 600;
             color: #fff;
             display: flex;
@@ -222,12 +225,13 @@
           }
           .overview {
             font-size: 0.575rem;
-            font-weight: 500;
+            font-weight: 700;
             color: #fff;
             padding: 0.3125rem;
             .collection-sublabel {
               font-size: 1.09rem;
               padding: 0.3125rem;
+              font-weight: 600;
             }
           }
           .revenue {
@@ -329,7 +333,7 @@
       .collection-backdrop {
         .backdrop-image {
           height: 23.75rem;
-          width: auto;
+          width: 100%;
           object-fit: cover;
           // opacity: 0.5;
         }

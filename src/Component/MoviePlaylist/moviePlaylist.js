@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./moviePlaylist.scss";
+//common component
 import MovieHeader from "../../CommonComponent/Headers/MovieHeader";
 import MovieFooter from "../../CommonComponent/Footers/MovieFooter";
 import { FaPenSquare, FaPlus, FaTrash, FaTrashRestore } from "react-icons/fa";
 import Modal from "../../CommonComponent/Modal/modal";
 import Dropdown from "../../CommonComponent/Dropdown/dropdown";
+import "./moviePlaylist.scss";
+import { useMovieContext } from "../../Assets/Context/movieContext";
 
 function MoviePlaylist() {
+  const { moviebyId } = useMovieContext();
+  console.log(
+    "🚀 ~ file: moviePlaylist.js:14 ~ MoviePlaylist ~ viewDetails:",
+    moviebyId
+  );
   const Img = `https://image.tmdb.org/t/p/w500`;
   const [movieList, setMovieList] = useState([]);
   const [playListArray, setPlayListArray] = useState([]);
   const [updateField, setUpdateField] = useState({
     id: null,
     name: "",
-    selectedMovie: [],
+    selectedMovie: moviebyId ? moviebyId : [],
     description: "",
   });
   const [playlist, setPlaylist] = useState({
     name: "",
-    selectedMovie: [],
+    selectedMovie: moviebyId ? moviebyId : [],
     show: false,
     isEdit: false,
     description: "",

@@ -11,7 +11,8 @@ const SearchBar = ({ searchHandler, onSearchClick }) => {
           type="text"
           className="input-search"
           onChange={searchHandler}
-          placeholder="...Search movies"
+          placeholder="Search movies..."
+          onKeyDown={searchHandler}
         />
       </div>
       <button className="search-icon" onClick={onSearchClick}>
