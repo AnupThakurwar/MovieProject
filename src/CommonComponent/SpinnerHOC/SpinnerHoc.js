@@ -11,8 +11,8 @@ export const SpinnerHoc = (WrapperComponent) => {
       <>
         {isLoading && (
           <div className="spinner-container">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
             </div>
           </div>
         )}

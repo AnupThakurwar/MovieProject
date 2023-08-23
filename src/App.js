@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import MovieHome from "./Component/MovieHome/MovieHome";
 import About from "./Component/About/About";
 import ErrorPage from "./Component/ErrorPage/ErrorPage";
@@ -10,15 +10,17 @@ import MovieCollection from "./Component/MovieCollection/movieCollection";
 function App() {
   return (
     <main className="App">
-      <Routes>
-        <Route path="/" Component={MovieHome} />
-        <Route path="/favoritemovie" Component={MovieFavorite} />
-        <Route path="/viewdetails" Component={MovieViewDetails} />
-        <Route path="/playlist" Component={moviePlaylist} />
-        <Route path="/collection" Component={MovieCollection} />
-        <Route path="/aboutus" Component={About} />
-        <Route Component={ErrorPage} />
-      </Routes>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" Component={MovieHome} />
+          <Route path="/favoritemovie" Component={MovieFavorite} />
+          <Route path="/viewdetails/:id" Component={MovieViewDetails} />
+          <Route path="/playlist" Component={moviePlaylist} />
+          <Route path="/collection/:id/:colid" Component={MovieCollection} />
+          <Route path="/aboutus" Component={About} />
+          <Route Component={ErrorPage} />
+        </Routes>
+      </BrowserRouter>
     </main>
   );
 }

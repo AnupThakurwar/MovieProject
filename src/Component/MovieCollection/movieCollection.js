@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+//actions
+import { collectionMovie } from "../../Store/Slices/MovieSlice";
 import { FaCircle, FaStar, FaStarHalf } from "react-icons/fa";
+import { img } from "../../Utils/Carousal/constants";
+//common components
 import MovieHeader from "../../CommonComponent/Headers/MovieHeader";
 import MovieFooter from "../../CommonComponent/Footers/MovieFooter";
-import "./movieCollection.scss";
 import { SpinnerHoc } from "../../CommonComponent/SpinnerHOC/SpinnerHoc";
+//style
+import "./movieCollection.scss";
 
 function MovieCollection({ setIsLoading }) {
-  const img = `https://image.tmdb.org/t/p/original/`;
-  const details = localStorage.getItem("movieDetail");
-  const movieDetails = JSON.parse(details);
+  const params = useParams();
+  const dispatch = useDispatch();
 
   const [collection, setCollection] = useState({
     data: [],
@@ -17,55 +22,28 @@ function MovieCollection({ setIsLoading }) {
     collectionDetails: [],
   });
   useEffect(() => {
-    fetchCollection();
+    dispatch(collectionMovie({ params, collectionMovieCallback }));
   }, []);
 
-  useEffect(() => {
-    if (collection?.data?.belongs_to_collection?.id) fetchCollectionDetails();
-  }, [collection.data]);
-
-  const fetchCollectionDetails = () => {
-    setIsLoading(true);
-    const collectionUrl = `https://api.themoviedb.org/3/collection/${collection?.data?.belongs_to_collection?.id}?api_key=${process.env.REACT_APP_API_KEY}&append_to_response=images,credits,releases,collections&language=en-US&include_image_language=en,null`;
-    axios
-      .get(collectionUrl)
-      .then((response) => {
-        setIsLoading(false);
-        // console.log(response.data, "resp");
-        if (response.status === 200)
-          setCollection({
-            ...collection,
-            collectionDetails: response.data,
-          });
-      })
-      .catch((error) => {
+  const collectionMovieCallback = (response, colresponse, status, message) => {
+    if (status === 200) {
+      setIsLoading(false);
+      if (status === 200) {
+        setCollection({
+          ...collection,
+          data: response,
+          collectionDetails: colresponse,
+        });
+      }
+    } else {
+      if (message) {
         setIsLoading(false);
         setCollection({
           ...collection,
-          data: error.message,
+          data: message,
         });
-      });
-  };
-
-  const fetchCollection = () => {
-    setIsLoading(true);
-    const url = `https://api.themoviedb.org/3/movie/${movieDetails.id}?api_key=${process.env.REACT_APP_API_KEY}&append_to_response=images,credits,releases,collections&language=en-US&include_image_language=en,null`;
-    axios
-      .get(url)
-      .then((response) => {
-        setIsLoading(false);
-        setCollection({
-          ...collection,
-          data: response.data,
-        });
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        setCollection({
-          ...collection,
-          error: error.data,
-        });
-      });
+      }
+    }
   };
 
   return (
@@ -75,7 +53,12 @@ function MovieCollection({ setIsLoading }) {
         <div className="collection-container">
           <div className="collection-backdrop">
             <img
-              src={img + collection.data.belongs_to_collection?.backdrop_path}
+              src={
+                img +
+                (collection.collectionDetails.backdrop_path
+                  ? collection.collectionDetails.backdrop_path
+                  : collection.data.backdrop_path)
+              }
               alt="collection_Backdrop_Image"
               className="backdrop-image"
             />
@@ -84,7 +67,7 @@ function MovieCollection({ setIsLoading }) {
           <div className="collection-information">
             <div className="collection-poster">
               <img
-                src={img + collection.data.belongs_to_collection?.poster_path}
+                src={img + collection.collectionDetails.poster_path}
                 alt="poster_path"
                 className="poster_image"
               />
@@ -163,7 +146,7 @@ function MovieCollection({ setIsLoading }) {
             {collection?.data?.credits?.crew?.length > 0 &&
               collection?.data?.credits?.crew?.slice(0, 5).map((members) => {
                 return (
-                  <div className="card-character">
+                  <div className="card-character" key={members.id}>
                     <div className="card-image">
                       <img
                         src={img + members.profile_path}
@@ -187,7 +170,7 @@ function MovieCollection({ setIsLoading }) {
             {collection?.collectionDetails?.parts?.length > 0 &&
               collection.collectionDetails.parts.map((movies) => {
                 return (
-                  <div className="postercard">
+                  <div className="postercard" key={movies.id}>
                     <div className="postercard-image">
                       <img
                         src={img + movies.poster_path}

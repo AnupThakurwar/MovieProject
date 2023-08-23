@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import { FaRegMehRollingEyes } from "react-icons/fa";
+//actions
+import { fetchAllMovies, setmovies } from "../../Store/Slices/MovieSlice";
 //common components
 import MovieHeader from "../../CommonComponent/Headers/MovieHeader";
 import MovieFooter from "../../CommonComponent/Footers/MovieFooter";
@@ -8,10 +10,12 @@ import { SpinnerHoc } from "../../CommonComponent/SpinnerHOC/SpinnerHoc";
 // components
 import MovieCards from "../MovieCards/MovieCards";
 import MoviePagination from "../../CommonComponent/Pagination/MoviePagination";
+import { bannerImage } from "../../Utils/Carousal/constants";
 //style
 import "./MovieHome.scss";
 
 const MovieHome = ({ setIsLoading }) => {
+  const dispatch = useDispatch();
   const [movieData, setMovieData] = useState({
     movies: [],
     error: null,
@@ -19,38 +23,32 @@ const MovieHome = ({ setIsLoading }) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null);
   const [searchInput, setSearchInput] = useState("");
+
   useEffect(
     () => {
-      fetchMovie();
+      setIsLoading(true);
+      dispatch(fetchAllMovies({ page, fetchAllMoviesCallback }));
     },
     [page, searchInput === ""],
     []
   );
 
-  const bannerImage =
-    "https://cdn.pixabay.com/photo/2020/04/20/18/10/cinema-5069314_1280.jpg";
-
-  const fetchMovie = () => {
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;
-
-    setIsLoading(true);
-    axios
-      .get(url)
-      .then((response) => {
-        setIsLoading(false);
-        console.log("🚀 response:", response);
-        setMovieData({ ...movieData, movies: response.data.results });
-        setTotalPages(response.data.total_pages);
-        setPage(response.data.page);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        console.log(error);
-        setMovieData({
-          ...movieData,
-          error: error,
-        });
+  const fetchAllMoviesCallback = (response, status, message) => {
+    if (status === 200) {
+      setIsLoading(false);
+      console.log("🚀 response:", response);
+      setMovieData({ ...movieData, movies: response.results });
+      setTotalPages(response.total_pages);
+      setPage(response.page);
+      dispatch(setmovies(response));
+    } else {
+      setIsLoading(false);
+      console.log(message);
+      setMovieData({
+        ...movieData,
+        error: message,
       });
+    }
   };
 
   const onChangeHandler = (e) => {

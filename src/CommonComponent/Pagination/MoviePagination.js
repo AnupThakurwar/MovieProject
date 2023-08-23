@@ -24,7 +24,7 @@ const MoviePagination = ({
               onChange={onChange}
             />
           </div>
-          <span className="ms-2 me-2">of</span>
+          <span className="ms-2 me-2 text-dark">of</span>
           <div className="total-pages">{TotalPages}</div>
         </div>
         <div className="pagination-next-arrow" onClick={nextPage}>

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useMovieContext } from "../../Assets/Context/movieContext";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   FaStar,
   FaStarHalf,
@@ -15,7 +13,12 @@ import {
   FaTwitter,
   FaInstagram,
 } from "react-icons/fa";
-import { movie_genre } from "../../Utils/Carousal/constants";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchMoviebyId,
+  setFavoriteMovie,
+} from "../../Store/Slices/MovieSlice";
+import { img } from "../../Utils/Carousal/constants";
 //common components
 import MovieHeader from "../../CommonComponent/Headers/MovieHeader";
 import MovieFooter from "../../CommonComponent/Footers/MovieFooter";
@@ -25,30 +28,23 @@ import "./MovieViewDetails.scss";
 
 const MovieViewDetails = ({ showDetails = true, setIsLoading }) => {
   const navigate = useNavigate();
-  const img = `https://image.tmdb.org/t/p/original/`;
-  const details = localStorage.getItem("movieDetail");
-  const { getFavMovie } = useMovieContext();
-  const viewDetails = JSON.parse(details);
+  const params = useParams();
+  const viewDetails = useSelector((state) => state.movieById);
+
+  const dispatch = useDispatch();
 
   const [movie, setMovie] = useState([]);
-  const [credits, setCredits] = useState([]);
-  const [movieVideos, setMovieVideos] = useState([]);
   const [likeMovie, setLikeMovie] = useState(false);
   const [showTrailer, setShowTrailer] = useState(false);
   const [mediaType, setMediaType] = useState("backdrops");
-  const [movieImages, setMovieImages] = useState([]);
   const [watchProvider, setWatchProvider] = useState([]);
   const [message, setMessge] = useState({
     toastData: null,
     show: false,
   });
   useEffect(() => {
-    fetchMoviebyId();
-    fetchCastIntobyId();
-    fetchResponsebyVideo();
-    fetchCastBio();
-    fetchmovieImages();
-    watchProviders();
+    setIsLoading(true);
+    dispatch(fetchMoviebyId({ params, fetchMoviebyIdCallback }));
   }, []);
 
   useEffect(() => {
@@ -61,106 +57,33 @@ const MovieViewDetails = ({ showDetails = true, setIsLoading }) => {
     }, 3000);
   }, [message]);
 
-  const watchProviders = () => {
-    const url = `https://api.themoviedb.org/3/movie/${viewDetails.id}/watch/providers?api_key=${process.env.REACT_APP_API_KEY}&include_image_language=en,null`;
-    setIsLoading(true);
-    axios
-      .get(url)
-      .then((response) => {
-        setIsLoading(false);
-        // console.log(response.data.results["IN"], "media");
-        setWatchProvider(response.data.results["IN"]);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        console.log(error);
-      });
+  const fetchMoviebyIdCallback = (response, watchProvider, status, message) => {
+    if (status === 200) {
+      setIsLoading(false);
+      setMovie(response);
+      setWatchProvider(watchProvider.results["IN"]);
+    } else {
+      setIsLoading(false);
+      console.log(message);
+    }
   };
-
-  const fetchmovieImages = () => {
-    const url = `https://api.themoviedb.org/3/movie/${viewDetails.id}?api_key=${process.env.REACT_APP_API_KEY}&append_to_response=images&language=en-US&include_image_language=en,null`;
-    axios
-      .get(url)
-      .then((response) => {
-        // console.log(response.data.images, "media");
-        setMovieImages(response.data.images);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const fetchCastBio = () => {
-    const url = `https://api.themoviedb.org/3/person/976-jason-statham?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=credits`;
-    axios
-      .get(url)
-      .then((response) => {})
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const fetchCastIntobyId = () => {
-    const url = `https://api.themoviedb.org/3/movie/${viewDetails.id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=credits`;
-    axios
-      .get(url)
-      .then((response) => {
-        // console.log(response.data, "credits");
-        setCredits(response.data.credits);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const fetchMoviebyId = () => {
-    const url = `https://api.themoviedb.org/3/movie/${viewDetails.id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=releases`;
-    axios
-      .get(url)
-      .then((response) => {
-        // console.log(response.data, "release");
-        setMovie(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const fetchResponsebyVideo = () => {
-    const url = `https://api.themoviedb.org/3/movie/${viewDetails.id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
-    axios
-      .get(url)
-      .then((response) => {
-        // console.log(response.data, "videos");
-        setMovieVideos(response.data.results);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const genreFetched = viewDetails.genre_ids.map((genre) => {
-    return Object.values(movie_genre).includes(genre)
-      ? Object.keys(movie_genre).find((keys) => movie_genre[keys] === genre)
-      : null;
-  });
 
   const likeActionHandler = () => {
     setLikeMovie(!likeMovie);
   };
 
   const addfavoriteHandler = () => {
-    getFavMovie(movie);
+    dispatch(setFavoriteMovie(movie));
     setMessge({ ...message, show: true, toastData: movie });
   };
 
   const createPlaylistHandler = () => {
-    getFavMovie(movie);
+    dispatch(setFavoriteMovie(movie));
     navigate("/playlist");
   };
 
   const PlayTrailer = () => {
-    const officialTrailer = movieVideos?.filter(
+    const officialTrailer = movie.videos.results?.filter(
       (movie) => movie.type === "Trailer"
     );
     console.log(officialTrailer, "officialTrailer");
@@ -182,7 +105,7 @@ const MovieViewDetails = ({ showDetails = true, setIsLoading }) => {
   const MediaContainer = (props) => {
     switch (props.mediatype) {
       case "posters":
-        return movieImages?.posters?.slice(0, 10)?.map((media) => {
+        return movie?.images?.posters?.slice(0, 10)?.map((media) => {
           return (
             <div key={media.file_path}>
               <img src={img + media.file_path} alt="" className="media-image" />
@@ -190,7 +113,7 @@ const MovieViewDetails = ({ showDetails = true, setIsLoading }) => {
           );
         });
       case "backdrops":
-        return movieImages?.backdrops?.slice(0, 10)?.map((media) => {
+        return movie?.images?.backdrops?.slice(0, 10)?.map((media) => {
           return (
             <div key={media.file_path}>
               <img src={img + media.file_path} alt="" className="media-image" />
@@ -198,7 +121,7 @@ const MovieViewDetails = ({ showDetails = true, setIsLoading }) => {
           );
         });
       default:
-        return movieVideos?.slice(0, 10)?.map((media) => {
+        return movie.videos.results?.slice(0, 10)?.map((media) => {
           return (
             <div key={media.key}>
               <iframe
@@ -214,8 +137,8 @@ const MovieViewDetails = ({ showDetails = true, setIsLoading }) => {
     }
   };
 
-  const viewCollectionDetails = () => {
-    navigate("/collection");
+  const viewCollectionDetails = (movie) => {
+    navigate(`/collection/${movie.id}/${movie.belongs_to_collection.id}`);
   };
 
   return (
@@ -224,7 +147,7 @@ const MovieViewDetails = ({ showDetails = true, setIsLoading }) => {
       <div className={showDetails ? "detail-container" : "display-none"}>
         <div className="detail-image-container">
           <img
-            src={img + [viewDetails.backdrop_path]}
+            src={img + movie.backdrop_path}
             alt="details_Image"
             className="image-container"
           />
@@ -232,7 +155,7 @@ const MovieViewDetails = ({ showDetails = true, setIsLoading }) => {
             <div className="movie-card-container">
               <div className="movie-card-image">
                 <img
-                  src={img + viewDetails.poster_path}
+                  src={img + movie.poster_path}
                   alt="poster_image"
                   className={
                     watchProvider ? "card-image watcher" : "card-image"
@@ -307,10 +230,10 @@ const MovieViewDetails = ({ showDetails = true, setIsLoading }) => {
                     <FaCircle />
                   </span>
                   <span className="ps-1 d-flex">
-                    {genreFetched.map((ele) => {
+                    {movie.genres?.map((ele) => {
                       return (
-                        <div className="ps-1" key={ele}>
-                          {ele}
+                        <div className="ps-1" key={ele.id}>
+                          {ele.name}
                         </div>
                       );
                     })}
@@ -407,7 +330,7 @@ const MovieViewDetails = ({ showDetails = true, setIsLoading }) => {
           <div className="top-cast-container border">
             <label className="top-cast-title w-100">Top Billed Cast</label>
             <div className="credit-main-container">
-              {credits?.cast?.slice(0, 13).map((cast) => {
+              {movie.credits?.cast?.slice(0, 13).map((cast) => {
                 return (
                   <div className="credit-container" key={cast.cast_id}>
                     <div className="credit-image">
@@ -455,7 +378,7 @@ const MovieViewDetails = ({ showDetails = true, setIsLoading }) => {
                   <p className="collection-subtext">{movie?.tagline}</p>
                   <button
                     className="collection-btn"
-                    onClick={viewCollectionDetails}
+                    onClick={() => viewCollectionDetails(movie)}
                   >
                     View the collection
                   </button>
@@ -502,7 +425,7 @@ const MovieViewDetails = ({ showDetails = true, setIsLoading }) => {
               </div>
             </div>
             <div className="media-card-wrapper">
-              {movieImages && <MediaContainer mediatype={mediaType} />}
+              {movie.images && <MediaContainer mediatype={mediaType} />}
             </div>
             <hr />
           </div>

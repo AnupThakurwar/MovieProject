@@ -6,6 +6,12 @@ export const settings = {
   slidesToScroll: 1,
 };
 
+export const bannerImage =
+  "https://cdn.pixabay.com/photo/2020/04/20/18/10/cinema-5069314_1280.jpg";
+
+export const img = `https://image.tmdb.org/t/p/original/`;
+export const img500 = `https://image.tmdb.org/t/p/w500`;
+
 export const movie_genre = {
   Action: 28,
   Adventure: 12,
@@ -60,3 +66,5 @@ export const movie_genre = {
 //for videos
 // const url = `https://api.themoviedb.org/3/movie/496450/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;
 // const url1 = `https://api.themoviedb.org/3/movie/streaming?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;
+//for cast bio
+// https://api.themoviedb.org/3/person/976-jason-statham?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=credits

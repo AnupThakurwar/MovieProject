@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setMoviesById } from "../../Store/Slices/MovieSlice";
 //common component
 import Toast from "../../CommonComponent/Toast/Toast";
-import { useMovieContext } from "../../Assets/Context/movieContext";
+import { img500 } from "../../Utils/Carousal/constants";
 import "./MovieCards.scss";
-import { useNavigate } from "react-router-dom";
 
 const MovieCards = ({ movieData }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { getMoviebyId } = useMovieContext();
-  const Img = `https://image.tmdb.org/t/p/w500`;
+
   const [message, setMessge] = useState({
     toastData: null,
     show: false,
@@ -25,9 +27,8 @@ const MovieCards = ({ movieData }) => {
   }, [message]);
 
   const viewDetailsHandler = (movie) => {
-    localStorage.setItem("movieDetail", JSON.stringify(movie));
-    getMoviebyId(movie);
-    navigate("/viewdetails");
+    dispatch(setMoviesById(movie));
+    navigate(`/viewdetails/${movie.id}`);
   };
 
   return (
@@ -38,7 +39,7 @@ const MovieCards = ({ movieData }) => {
             return (
               <div className="cards-container" key={movie.original_title}>
                 <img
-                  src={Img + movie.poster_path}
+                  src={img500 + movie.poster_path}
                   alt="movie_Image"
                   className="cards-image"
                   onClick={() => viewDetailsHandler(movie)}

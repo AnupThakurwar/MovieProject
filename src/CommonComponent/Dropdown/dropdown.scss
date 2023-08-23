@@ -33,11 +33,13 @@
     cursor: pointer;
     border-right: 2px solid #adc4ce;
     padding-right: 0.5rem;
+    color: black;
   }
 
   .dropdown-caret {
     padding-left: 0.5rem;
     cursor: pointer;
+    color: black;
   }
   .dropdown-menu {
     &.show {

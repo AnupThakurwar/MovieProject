@@ -8,6 +8,7 @@
     .pagination-previous-arrow {
       font-size: 22px;
       padding: 8px;
+      color: black;
     }
     .pagination-page {
       @extend .flex-properties;
@@ -26,11 +27,13 @@
         font-weight: 500;
         display: flex;
         justify-content: start;
+        color: black;
       }
     }
     .pagination-next-arrow {
       font-size: 22px;
       padding: 8px;
+      color: black;
     }
   }
 }

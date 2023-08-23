@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaSmileBeam } from "react-icons/fa";
 import "./MovieHeader.scss";
-import { useMovieContext } from "../../Assets/Context/movieContext";
 import BannerImage from "../BannerImage/bannerImage";
 import PageThemeToggler from "../../Component/PageThemeToggler/pageThemeToggler";
+import { useSelector } from "react-redux";
 
 const MovieHeader = ({
   searchHandler,
@@ -13,7 +12,7 @@ const MovieHeader = ({
   bannerImage,
 }) => {
   const classname = document.body.className;
-  const { favoriteMovie } = useMovieContext();
+  const favoriteMovie = useSelector((state) => state.favMovie);
   const [showNav, setShowNav] = useState(false);
   const [toggleTheme, setToggleTheme] = useState(classname);
 
@@ -74,9 +73,9 @@ const MovieHeader = ({
                 >
                   Favorite
                   {favoriteMovie?.length > 0 && (
-                    <span class="position-absolute translate-middle badge rounded-pill bg-danger">
+                    <span className="position-absolute translate-middle badge rounded-pill bg-danger">
                       {favoriteMovie?.length}
-                      <span class="visually-hidden">unread messages</span>
+                      <span className="visually-hidden">unread messages</span>
                     </span>
                   )}
                 </Link>

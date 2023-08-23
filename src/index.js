@@ -4,20 +4,20 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css";
-import { BrowserRouter } from "react-router-dom";
 import { MovieContextProvider } from "./Assets/Context/movieContext";
-// import "./custom.scss";
+import { Provider } from "react-redux";
+import { store } from "./Store/Store";
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <Provider store={store}>
       <MovieContextProvider>
         <App />
       </MovieContextProvider>
-    </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 

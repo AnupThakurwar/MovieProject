@@ -5,28 +5,22 @@ import MovieHeader from "../../CommonComponent/Headers/MovieHeader";
 import MovieFooter from "../../CommonComponent/Footers/MovieFooter";
 import { FaPenSquare, FaPlus, FaTrash, FaTrashRestore } from "react-icons/fa";
 import Modal from "../../CommonComponent/Modal/modal";
+import { img500 } from "../../Utils/Carousal/constants";
 import Dropdown from "../../CommonComponent/Dropdown/dropdown";
 import "./moviePlaylist.scss";
-import { useMovieContext } from "../../Assets/Context/movieContext";
 
 function MoviePlaylist() {
-  const { moviebyId } = useMovieContext();
-  console.log(
-    "🚀 ~ file: moviePlaylist.js:14 ~ MoviePlaylist ~ viewDetails:",
-    moviebyId
-  );
-  const Img = `https://image.tmdb.org/t/p/w500`;
   const [movieList, setMovieList] = useState([]);
   const [playListArray, setPlayListArray] = useState([]);
   const [updateField, setUpdateField] = useState({
     id: null,
     name: "",
-    selectedMovie: moviebyId ? moviebyId : [],
+    selectedMovie: [],
     description: "",
   });
   const [playlist, setPlaylist] = useState({
     name: "",
-    selectedMovie: moviebyId ? moviebyId : [],
+    selectedMovie: [],
     show: false,
     isEdit: false,
     description: "",
@@ -37,7 +31,7 @@ function MoviePlaylist() {
     axios
       .get(url)
       .then((response) => {
-        console.log("🚀 response:", response);
+        // console.log("🚀 response:", response);
         setMovieList(response.data.results);
       })
       .catch((error) => {
@@ -106,7 +100,7 @@ function MoviePlaylist() {
 
   //update playlist
   const updateplaylistHandler = (fetchId) => {
-    console.log(playListArray, "playlistarray");
+    // console.log(playListArray, "playlistarray");
     let selected = playListArray.map((movie) => {
       if (movie.id === fetchId) {
         setPlaylist({
@@ -301,7 +295,7 @@ function MoviePlaylist() {
                           <div className="pl-cardlist" key={movie.id}>
                             <div className="pl-image-container">
                               <img
-                                src={Img + selected.poster_path}
+                                src={img500 + selected.poster_path}
                                 alt="movie_Image"
                                 className="pl-card-image"
                               />
@@ -345,7 +339,7 @@ function MoviePlaylist() {
                       {movie.selectedMovie.slice(0, 4).map((image) => {
                         return (
                           <img
-                            src={Img + image.poster_path}
+                            src={img500 + image.poster_path}
                             alt="cardImage"
                             className="movie-image"
                             key={image}
